@@ -3,38 +3,40 @@
 namespace LichessBot {
 
 PGNFilter::PGNFilter(std::ofstream&& fout) :
-    processed_games(0),
-    moveCount{0},
-    buffer{},
-    file_out{std::move(fout)} {}
+    processed_games_(0),
+    moveCount_{0},
+    buffer_{},
+    file_out_{std::move(fout)} {}
 
 void PGNFilter::startPgn() {
-    if (processed_games % 100 == 0)
-        std::cout << processed_games << " games processed" << std::endl;
-    buffer.clear();
+    if (processed_games_ % 100 == 0)
+        std::cout << processed_games_ << " games processed" << std::endl;
+    buffer_.str(std::string());
 }
 
 void PGNFilter::header(std::string_view key, std::string_view value) {
-    buffer << "[" << key << " " << std::quoted(value) << "]\n";
+    buffer_ << "[" << key << " " << std::quoted(value) << "]\n";
+    if (key == "Result")
+        result_ = value;
 }
 
 void PGNFilter::startMoves() {
-    moveCount = 0;
-    buffer << "\n";
+    moveCount_ = 0;
+    buffer_ << "\n";
 }
 
 void PGNFilter::move(std::string_view move, std::string_view comment) {
-    if (moveCount % 2 == 0)
+    if (moveCount_ % 2 == 0)
     {
-        buffer << moveCount / 2 << ". ";
+        buffer_ << moveCount_ / 2 + 1 << ". ";
     }
-    buffer << move << " ";
-    moveCount++;
+    buffer_ << move << " ";
+    moveCount_++;
 }
 
 void PGNFilter::endPgn() {
-    file_out << buffer.str();
-    processed_games++;
+    file_out_ << buffer_.str() << result_ << "\n\n";
+    processed_games_++;
 }
 
 }

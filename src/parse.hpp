@@ -19,10 +19,11 @@ class PGNFilter: public chess::pgn::Visitor {
     virtual void endPgn();
 
    private:
-    std::size_t       processed_games;
-    std::size_t       moveCount;
-    std::stringstream buffer;
-    std::ofstream     file_out;
+    std::size_t       processed_games_;
+    std::size_t       moveCount_;
+    std::stringstream buffer_;
+    std::string       result_;
+    std::ofstream     file_out_;
 };
 
 }
