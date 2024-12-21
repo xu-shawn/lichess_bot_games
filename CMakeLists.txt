@@ -11,6 +11,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE "-march=native -O3 -Ofast -fno-stack-protector -fno-
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(SOURCE_FILES src/main.cpp)
+set(SOURCE_FILES src/main.cpp src/parse.cpp src/processpgn.cpp)
 
 add_executable(filter ${SOURCE_FILES})
