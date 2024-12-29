@@ -5,7 +5,7 @@
 
 namespace LichessBot {
 
-void process_pgn(std::string_view inputfile, std::string_view outputfile);
+void process_pgn(const std::string& inputfile, const std::string& outputfile);
 
 }
 

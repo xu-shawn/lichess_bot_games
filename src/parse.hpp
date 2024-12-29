@@ -19,7 +19,9 @@ class PGNFilter: public chess::pgn::Visitor {
     virtual void endPgn();
 
    private:
+    std::uint8_t      bot_flag_;
     std::size_t       processed_games_;
+    std::size_t       written_games_;
     std::size_t       moveCount_;
     std::stringstream buffer_;
     std::string       result_;
